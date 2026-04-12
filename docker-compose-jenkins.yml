@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+
+  # MongoDB Database (Part II)
+  mongodb_jenkins:
+    image: mongo:6
+    container_name: jenkins_mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
+    ports:
+      - "27018:27017"
+    volumes:
+      - jenkins_mongo_data:/data/db
+
+  # Backend API (Part II)
+  backend_jenkins:
+    image: node:20-alpine
+    container_name: jenkins_backend
+    restart: always
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      MONGODB_URI: mongodb://admin:admin1234@mongodb_jenkins:27017/?authSource=admin
+      JWT_SECRET: pikachuuu
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin1234
+      STRIPE_SECRET_KEY: your-stripe-key
+    depends_on:
+      - mongodb_jenkins
+    volumes:
+      - ./backend:/app
+    command: sh -c "npm install && node server.js"
+
+  # Frontend (Part II)
+  frontend_jenkins:
+    image: node:20-alpine
+    container_name: jenkins_frontend
+    restart: always
+    working_dir: /app
+    ports:
+      - "5175:5175"
+    environment:
+      - VITE_BACKEND_URL=http://13.50.252.6:4000
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm install && npm run dev -- --host --port 5175"
+
+  # Admin Panel (Part II)
+  admin_jenkins:
+    image: node:20-alpine
+    container_name: jenkins_admin
+    restart: always
+    working_dir: /app
+    ports:
+      - "5176:5176"
+    environment:
+      - VITE_BACKEND_URL=http://13.50.252.6:4000
+    volumes:
+      - ./admin:/app
+    command: sh -c "npm install && npm run dev -- --host --port 5176"
+
+volumes:
+  jenkins_mongo_data:
