@@ -7,13 +7,12 @@ import CartTotal from "../components/CartTotal";
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, navigate, backendUrl } =
     useContext(ShopContext);
-    
+
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
     if (products.length > 0) {
       const tempData = [];
-
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
@@ -25,50 +24,48 @@ const Cart = () => {
           }
         }
       }
-
       setCartData(tempData);
     }
   }, [cartItems, products]);
 
   return (
-    <div className="border-t pt-14">
-      <div className="text-2xl mb-3">
+    <div className="pt-14 fade-in-up">
+      <div className="text-2xl mb-6">
         <Title text1={"YOUR"} text2={"CART"} />
       </div>
-      <div>
+      <div className="flex flex-col gap-4">
         {cartData.map((item, index) => {
           const productData = products.find(
             (product) => product._id === item._id
           );
-          
+
           return (
             <div
               key={index}
-              className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
+              className="glass-card rounded-2xl p-4 sm:p-6 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
-              <div className=" flex items-start gap-6">
-                <img 
-                  className="w-16 sm:w-20" 
-                  src={backendUrl + '/uploads/' + productData.image[0]} 
+              <div className="flex items-center gap-5">
+                <img
+                  className="w-16 sm:w-20 rounded-xl"
+                  src={backendUrl + '/uploads/' + productData.image[0]}
                   alt={productData.name}
                 />
                 <div>
-                  <p className="text-xs sm:text-lg font-medium">
+                  <p className="text-sm sm:text-base font-semibold text-gray-800">
                     {productData.name}
                   </p>
-                  <div className="flex items-center gap-5 mt-2">
-                    <p>
-                      {currency}
-                      {productData.price}
+                  <div className="flex items-center gap-4 mt-2">
+                    <p className="text-[#e94560] font-bold">
+                      {currency}{productData.price}
                     </p>
-                    <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">
+                    <span className="px-3 py-1 bg-gray-100 rounded-lg text-xs font-medium text-gray-600">
                       {item.size}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
               <input
-                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                className="border border-gray-200 rounded-xl max-w-12 sm:max-w-20 px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-[#e94560]/20"
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
@@ -83,22 +80,22 @@ const Cart = () => {
                 }
               />
               <img
-                className="w-4 mr-4 sm:w-5 cursor-pointer"
+                className="w-5 cursor-pointer opacity-50 hover:opacity-100 hover:scale-110 transition-all"
                 src={assets.bin_icon}
-                alt="bin_icon"
+                alt="delete"
                 onClick={() => updateQuantity(item._id, item.size, 0)}
               />
             </div>
           );
         })}
       </div>
-      <div className="flex justify-end my-20">
-        <div className="w-full sm:w-112.5">
+      <div className="flex justify-end my-16">
+        <div className="w-full sm:w-[450px]">
           <CartTotal />
-          <div className=" w-full text-end">
+          <div className="w-full text-end mt-6">
             <button
               onClick={() => navigate("/place-order")}
-              className="bg-black text-white text-sm my-8 px-8 py-3"
+              className="shimmer-btn text-white font-semibold px-10 py-3.5 rounded-full text-sm tracking-wide hover:scale-105 transition-transform duration-300"
             >
               PROCEED TO CHECKOUT
             </button>

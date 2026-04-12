@@ -51,62 +51,62 @@ const Login = () => {
   }, []);
 
   return (
-    <form
-      onSubmit={onSumbitHandler}
-      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
-    >
-      <div className="inline-flex items-center gap-2 mb-2 mt-10">
-        <p className="prata-regular text-3xl">{currentState}</p>
-        <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
-      </div>
-      {currentState === "Sign Up" && (
-        <input
-          className="w-full px-3 py-2 border border-gray-800"
-          type=" requiredxt"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          required
-        />
-      )}
-      <input
-        className="w-full px-3 py-2 border border-gray-800"
-        type="text"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-        required
-      />
-      <input
-        className="w-full px-3 py-2 border border-gray-800"
-        type="Password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        required
-      />
-      <div className="w-full flex justify-between text-sm mt-[-8px]">
-        <p className="cursor-pointer">Forgot Password?</p>
-        {currentState === "Sign Up" ? (
-          <p
-            onClick={() => setCurrentState("Login")}
-            className="cursor-pointer"
-          >
-            Login Here
+    <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="glass-card rounded-3xl p-10 w-[90%] sm:max-w-md fade-in-up">
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#e94560] to-[#f5a623] flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-2xl">F</span>
+          </div>
+          <h2 className="playfair text-3xl text-gray-900">{currentState}</h2>
+          <p className="text-gray-400 text-sm mt-2">
+            {currentState === "Sign Up" ? "Create your account to get started" : "Welcome back! Sign in to continue"}
           </p>
-        ) : (
-          <p
-            onClick={() => setCurrentState("Sign Up")}
-            className="cursor-pointer"
-          >
-            Create an account
-          </p>
-        )}
+        </div>
+        <form onSubmit={onSumbitHandler} className="flex flex-col gap-4">
+          {currentState === "Sign Up" && (
+            <input
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e94560]/20 focus:border-[#e94560] transition-all text-sm"
+              type="text"
+              placeholder="Full Name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              required
+            />
+          )}
+          <input
+            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e94560]/20 focus:border-[#e94560] transition-all text-sm"
+            type="text"
+            placeholder="Email Address"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <input
+            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e94560]/20 focus:border-[#e94560] transition-all text-sm"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+          />
+          <div className="w-full flex justify-between text-sm text-gray-500">
+            <p className="cursor-pointer hover:text-[#e94560] transition-colors">Forgot Password?</p>
+            {currentState === "Sign Up" ? (
+              <p onClick={() => setCurrentState("Login")} className="cursor-pointer hover:text-[#e94560] transition-colors font-medium">
+                Login Here
+              </p>
+            ) : (
+              <p onClick={() => setCurrentState("Sign Up")} className="cursor-pointer hover:text-[#e94560] transition-colors font-medium">
+                Create an account
+              </p>
+            )}
+          </div>
+          <button className="w-full shimmer-btn text-white font-semibold py-3.5 rounded-full text-sm tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-transform duration-300 mt-2">
+            {currentState === "Sign Up" ? "CREATE ACCOUNT" : "SIGN IN"}
+          </button>
+        </form>
       </div>
-      <button className="bg-black text-white font-light px-8 py-2 mt-4">
-        {currentState}
-      </button>
-    </form>
+    </div>
   );
 };
 

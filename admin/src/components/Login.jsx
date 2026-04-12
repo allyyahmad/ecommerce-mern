@@ -27,35 +27,42 @@ const Login = ({ setToken }) => {
     }
   };
 
-  // Set initial values for email and password
   React.useEffect(() => {
     setEmail("admin@example.com");
     setPassword("admin1234");
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center w-full">
-      <div className="bg-white shadow-md rounded-lg px-8 py-6 max-w-md">
-        <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
+      {/* Decorative blobs */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-[#e94560]/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#f5a623]/10 rounded-full blur-3xl"></div>
+
+      <div className="relative z-10 bg-white/95 backdrop-blur-xl shadow-2xl rounded-3xl px-10 py-10 max-w-md w-full mx-4">
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#e94560] to-[#f5a623] flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-2xl">F</span>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
+          <p className="text-gray-400 text-sm mt-1">Sign in to manage your store</p>
+        </div>
         <form onSubmit={onSubmitHandler}>
-          <div className="mb-3 min-w-72">
-            <p className="text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </p>
+          <div className="mb-4">
+            <p className="text-sm font-medium text-gray-700 mb-2">Email Address</p>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-md w-full px-3 py-2 border border-gray-300 outline-none"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm"
               type="email"
               placeholder="your@email.com"
               value={email}
               required
             />
           </div>
-          <div className="mb-3 min-w-72">
+          <div className="mb-6">
             <p className="text-sm font-medium text-gray-700 mb-2">Password</p>
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-md w-full px-3 py-2 border border-gray-300 outline-none"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm"
               type="password"
               placeholder="Password"
               value={password}
@@ -63,10 +70,10 @@ const Login = ({ setToken }) => {
             />
           </div>
           <button
-            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black"
+            className="w-full py-3.5 rounded-full text-white font-semibold text-sm shimmer-btn hover:scale-[1.02] active:scale-[0.98] transition-transform"
             type="submit"
           >
-            Login
+            Sign In
           </button>
         </form>
       </div>

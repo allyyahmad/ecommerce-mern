@@ -1,19 +1,77 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-accent-light: #ff6b6b;
+  --color-gold: #f5a623;
+}
+
 * {
-  font-family: Outfit;
+  font-family: "Inter", sans-serif;
 }
 
 select,
 input,
 textarea {
-  border: 1px solid #c2c2c2;
-  outline-color: #c586a5;
-  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  border-color: #e94560;
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
 }
 
 .active {
-  background-color: #ffebf5;
-  border-color: #c586a5;
+  background: linear-gradient(135deg, rgba(233, 69, 96, 0.08), rgba(245, 166, 35, 0.08));
+  border-color: #e94560 !important;
+  color: #e94560;
+  font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f9fafb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #e94560, #f5a623);
+  border-radius: 3px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #e94560, #f5a623);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* Shimmer button */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-btn {
+  background: linear-gradient(90deg, #e94560, #f5a623, #e94560);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
 }

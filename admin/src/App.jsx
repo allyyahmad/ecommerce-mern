@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
-export const currency = "$"
+export const currency = "$";
 
 const App = () => {
   const [token, setToken] = useState(
@@ -25,17 +25,24 @@ const App = () => {
   }, [token]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <ToastContainer />
+    <div className="bg-[#f8f9fb] min-h-screen">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        toastStyle={{
+          borderRadius: "16px",
+          fontFamily: "Inter",
+          fontSize: "14px",
+        }}
+      />
       {token === "" ? (
         <Login setToken={setToken} />
       ) : (
         <>
           <Navbar setToken={setToken} />
-          <hr />
           <div className="flex w-full">
             <Sidebar />
-            <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
+            <div className="flex-1 mx-auto px-6 lg:px-10 my-8 text-gray-600 text-base max-w-5xl">
               <Routes>
                 <Route path="/" element={<Navigate to="/add" replace />} />
                 <Route path="/add" element={<Add token={token} />} />

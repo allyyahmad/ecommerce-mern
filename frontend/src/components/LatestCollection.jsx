@@ -13,16 +13,14 @@ const LatestCollection = () => {
   }, [products]);
 
   return (
-    <div className="my-10">
+    <div className="my-16">
       <div className="text-center py-8 text-3xl">
         <Title text1={"LATEST"} text2={"COLLECTION"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the.
+        <p className="w-3/4 m-auto text-sm text-gray-500 mt-2">
+          Discover the freshest styles handpicked for you. Our newest arrivals blend comfort with contemporary design.
         </p>
       </div>
-      {/* Rendering products */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-5 gap-y-8">
         {latestProducts.map((item, index) => (
           <ProductItem
             key={index}

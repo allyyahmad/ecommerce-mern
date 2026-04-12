@@ -46,46 +46,50 @@ const List = ({ token }) => {
   }, []);
 
   return (
-    <>
-      <p className="mb-2">All Products List</p>
-      <div className="flex flex-col gap-2">
-        {/* List Table Title */}
-        <div className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm">
-          <b>Image</b>
-          <b>Name</b>
-          <b>Category</b>
-          <b>Price</b>
-          <b className="text-center">Action</b>
+    <div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-1">All Products</h2>
+      <p className="text-gray-400 text-sm mb-6">Manage your product inventory</p>
+
+      <div className="flex flex-col gap-3">
+        {/* Table Header */}
+        <div className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-3 px-5 bg-gradient-to-r from-gray-50 to-white rounded-xl text-sm font-semibold text-gray-500">
+          <p>Image</p>
+          <p>Name</p>
+          <p>Category</p>
+          <p>Price</p>
+          <p className="text-center">Action</p>
         </div>
-        
+
         {/* Product List */}
         {list.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm"
+            className="glass-card rounded-xl grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-3 px-5 text-sm hover:shadow-lg transition-all duration-300"
           >
-            {/* MODIFIED: Updated src to point to local backend uploads folder */}
-            <img 
-              className="w-12" 
-              src={backendUrl + '/uploads/' + item.image[0]} 
-              alt={item.name} 
+            <img
+              className="w-14 h-14 rounded-lg object-cover"
+              src={backendUrl + '/uploads/' + item.image[0]}
+              alt={item.name}
             />
-            <p>{item.name}</p>
-            <p>{item.category}</p>
+            <p className="font-medium text-gray-800">{item.name}</p>
             <p>
-              {currency}
-              {item.price}
+              <span className="px-2.5 py-1 bg-gray-100 rounded-lg text-xs font-medium">{item.category}</span>
             </p>
-            <p
-              onClick={() => removeProduct(item._id)}
-              className="text-right md:text-center cursor-pointer text-lg hover:text-red-500"
-            >
-              X
+            <p className="font-bold text-gray-900">
+              {currency}{item.price}
             </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => removeProduct(item._id)}
+                className="w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 flex items-center justify-center transition-colors duration-300 font-bold text-sm"
+              >
+                X
+              </button>
+            </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
