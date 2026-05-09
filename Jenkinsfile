@@ -28,8 +28,10 @@ pipeline {
                 sh '''
                   set -eu
                   docker compose -p $COMPOSE_PROJECT -f $COMPOSE_FILE down -v || true
-                  # Auto-detect EC2 public IP (used by frontend/admin to reach backend from browser)
-                  EC2_PUBLIC_IP=$(curl -s --max-time 3 http://169.254.169.254/latest/meta-data/public-ipv4 || hostname -I | awk '{print $1}')
+                  # Auto-detect EC2 public IP (IMDSv2 token-based, with fallback)
+                  TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 60" --max-time 3 || true)
+                  EC2_PUBLIC_IP=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" --max-time 3 http://169.254.169.254/latest/meta-data/public-ipv4 || true)
+                  if [ -z "$EC2_PUBLIC_IP" ]; then EC2_PUBLIC_IP=$(hostname -I | awk '{print $1}'); fi
                   export EC2_PUBLIC_IP
                   echo "Bringing stack up against EC2 IP: $EC2_PUBLIC_IP"
                   docker compose -p $COMPOSE_PROJECT -f $COMPOSE_FILE up -d --build
