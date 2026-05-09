@@ -19,7 +19,7 @@ pipeline {
 
         stage('Clone Application') {
             steps {
-                git branch: 'main', url: env.APP_REPO
+                git branch: 'main', url: env.APP_REPO, credentialsId: 'github-pat'
             }
         }
 
@@ -45,7 +45,7 @@ pipeline {
         stage('Clone Test Suite') {
             steps {
                 dir('tests') {
-                    git branch: 'main', url: env.TESTS_REPO
+                    git branch: 'main', url: env.TESTS_REPO, credentialsId: 'github-pat'
                 }
             }
         }
