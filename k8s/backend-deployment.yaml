@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-backend-deployment
+  labels:
+    app: ecommerce-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-backend
+  template:
+    metadata:
+      labels:
+        app: ecommerce-backend
+    spec:
+      containers:
+        - name: ecommerce-backend
+          image: allyyahmad/ecommerce-backend:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: MONGODB_URI
+              value: mongodb://admin:admin1234@mongo-service:27017/?authSource=admin
+            - name: JWT_SECRET
+              value: pikachuuu
+            - name: ADMIN_EMAIL
+              value: admin@example.com
+            - name: ADMIN_PASSWORD
+              value: admin1234
+            - name: STRIPE_SECRET_KEY
+              value: sk_test_placeholder000000000000000000000000
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 500m
